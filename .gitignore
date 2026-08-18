@@ -26,4 +26,4 @@ dist-ssr
 .env.backup
 .env.production
 package-lock.json
-.claude/settings.local.json
+.claude
