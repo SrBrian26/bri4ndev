@@ -6,7 +6,7 @@ contacto. Está en producción en **[bri4n.dev](https://bri4n.dev)**.
 
 El contenido dinámico (proyectos y tecnologías) y el envío del formulario no
 viven en este repositorio: se consumen desde una API externa, así que el sitio
-necesita esa API para mostrarse completo. Ver [API que consume](#api-que-consume).
+necesita esa API para mostrarse completo.
 
 ---
 
