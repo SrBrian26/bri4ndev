@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTP -> HTTPS. La primera condición cubre la conexión directa; la segunda,
+  # el caso en que un proxy o CDN termina el TLS y el servidor ve http.
+  # El host va escrito a mano (no %{HTTP_HOST}) para que http://www llegue al
+  # destino final en un solo salto en vez de encadenar dos 301.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP:X-Forwarded-Proto} =http
+  RewriteRule ^ https://bri4n.dev%{REQUEST_URI} [R=301,L]
+
+  # www -> apex, para lo que ya entró por HTTPS.
+  RewriteCond %{HTTP_HOST} ^www\.bri4n\.dev$ [NC]
+  RewriteRule ^ https://bri4n.dev%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Un año, sin includeSubDomains ni preload: incluir subdominios obligaría a
+  # api.bri4n.dev y a cualquier subdominio futuro a tener HTTPS válido desde el
+  # primer día, y preload es prácticamente irreversible.
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
