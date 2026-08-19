@@ -1,15 +1,19 @@
 import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
-import { getProjects } from "../services/api";
+import { getProjects, proyectosEnCache } from "../services/api";
 import type { Project } from "../components/ProjectCard";
 import ProjectCard from "../components/ProjectCard";
+import ProjectCardSkeleton from "../components/ProjectCardSkeleton";
 import TitleSection from "../components/TitleSection";
 
 const PAGE_SIZE = 3;
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Si la petición de main.tsx ya volvió, se parte con los datos puestos y no
+  // se ve el esqueleto ni por un frame.
+  const cache = proyectosEnCache();
+  const [projects, setProjects] = useState<Project[]>(cache ?? []);
+  const [loading, setLoading] = useState(cache === null);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
@@ -53,22 +57,34 @@ export default function Projects() {
       <div className="max-w-5xl mx-auto px-6 py-26">
         <TitleSection title="Proyectos" />
 
-        {loading && (
-          <p className="text-zinc-500 text-sm">Cargando proyectos...</p>
-        )}
-
         {error && (
           <p className="text-zinc-500 text-sm">
             No se pudieron cargar los proyectos.
           </p>
         )}
 
+        {/* La bajada es texto estático: no tiene por qué esperar a la API */}
+        {!error && (
+          <p className="text-zinc-400 leading-relaxed pb-0 sm:pb-6">
+            Revisa algunos de los proyectos en los que he trabajado.
+          </p>
+        )}
+
+        {loading && !error && (
+          <>
+            <div className="flex flex-col gap-4" aria-hidden="true">
+              {Array.from({ length: PAGE_SIZE }, (_, i) => (
+                <ProjectCardSkeleton key={i} />
+              ))}
+            </div>
+            <span role="status" className="sr-only">
+              Cargando proyectos
+            </span>
+          </>
+        )}
+
         {!loading && !error && (
           <>
-            <p className="text-zinc-400 leading-relaxed pb-0 sm:pb-6">
-              Revisa algunos de los proyectos en los que he trabajado.
-            </p>
-
             <div ref={listRef} className="flex flex-col gap-4">
               {visible.map((project, i) => (
                 <ProjectCard

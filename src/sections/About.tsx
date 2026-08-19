@@ -1,8 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { scrollToSection } from "../lib/scroll";
-import { getTechnologies } from "../services/api";
+import { getTechnologies, tecnologiasEnCache } from "../services/api";
 import TechChip from "../components/TechChip";
+import TechChipSkeleton from "../components/TechChipSkeleton";
 import type { Technology } from "../components/TechChip";
 import TitleSection from "../components/TitleSection";
 
@@ -26,8 +27,11 @@ const EXPERIENCIA = [
 ];
 
 export default function About() {
-  const [skills, setSkills] = useState<Technology[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Si la petición de main.tsx ya volvió, se parte con los datos puestos y no
+  // se ve el esqueleto ni por un frame.
+  const cache = tecnologiasEnCache();
+  const [skills, setSkills] = useState<Technology[]>(cache ?? []);
+  const [loading, setLoading] = useState(cache === null);
   const [error, setError] = useState(false);
   const experienciaRef = useRef<HTMLDivElement>(null);
 
@@ -108,7 +112,14 @@ export default function About() {
               Tecnologías Principales
             </p>
             {loading && (
-              <p className="text-zinc-500 text-sm">Cargando tecnologías...</p>
+              <>
+                <div className="flex flex-wrap gap-2" aria-hidden="true">
+                  <TechChipSkeleton />
+                </div>
+                <span role="status" className="sr-only">
+                  Cargando tecnologías
+                </span>
+              </>
             )}
 
             {error && (

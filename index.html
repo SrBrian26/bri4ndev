@@ -20,6 +20,14 @@
       crossorigin
     />
 
+    <!--
+      La API está en otro origen: sin esto el primer fetch paga DNS + TLS + TCP
+      recién cuando corre el bundle. Vite reemplaza %VITE_API_URL% al construir;
+      basta con que sea una URL del mismo origen que la API, la ruta se ignora.
+    -->
+    <link rel="preconnect" href="%VITE_API_URL%" crossorigin />
+    <link rel="dns-prefetch" href="%VITE_API_URL%" />
+
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link
       rel="stylesheet"

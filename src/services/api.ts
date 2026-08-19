@@ -5,18 +5,68 @@ import type { Motivo, Problemas } from "../lib/contact";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-export async function getProjects(): Promise<Project[]> {
-  const res = await fetch(`${BASE_URL}/projects`);
-  if (!res.ok) throw new Error("Error al cargar proyectos");
+/** GET a la API, devolviendo el `data` del sobre que arma Laravel. */
+async function pedir<T>(ruta: string, error: string): Promise<T> {
+  const res = await fetch(`${BASE_URL}${ruta}`);
+  if (!res.ok) throw new Error(error);
   const json = await res.json();
   return json.data;
 }
 
-export async function getTechnologies(): Promise<Technology[]> {
-  const res = await fetch(`${BASE_URL}/technologies`);
-  if (!res.ok) throw new Error("Error al cargar tecnologías");
-  const json = await res.json();
-  return json.data;
+/**
+ * Recurso de solo lectura cacheado a nivel de módulo.
+ *
+ * Guarda la promesa en vuelo, así que da lo mismo cuántas veces se pida: la
+ * petición sale una sola vez y puede lanzarse antes de que React monte (ver
+ * `prefetch`). Guarda además el valor ya resuelto, para que la sección arranque
+ * con datos en el primer render —visita con la respuesta todavía en la caché
+ * del navegador— y se salte el esqueleto.
+ */
+function recurso<T>(ruta: string, error: string) {
+  let promesa: Promise<T> | null = null;
+  let datos: T | null = null;
+
+  function obtener(): Promise<T> {
+    promesa ??= pedir<T>(ruta, error)
+      .then((valor) => {
+        datos = valor;
+        return valor;
+      })
+      .catch((e: unknown) => {
+        // El fallo no se cachea: la siguiente llamada vuelve a intentarlo.
+        promesa = null;
+        throw e;
+      });
+    return promesa;
+  }
+
+  return { obtener, cache: () => datos };
+}
+
+const proyectos = recurso<Project[]>("/projects", "Error al cargar proyectos");
+const tecnologias = recurso<Technology[]>(
+  "/technologies",
+  "Error al cargar tecnologías",
+);
+
+export const getProjects = proyectos.obtener;
+export const getTechnologies = tecnologias.obtener;
+
+/** Datos ya en memoria, o `null` si la petición sigue en curso. */
+export const proyectosEnCache = proyectos.cache;
+export const tecnologiasEnCache = tecnologias.cache;
+
+/**
+ * Lanza las dos peticiones sin esperarlas. Se llama desde main.tsx antes de
+ * montar React: así la ida y vuelta a la API se solapa con el arranque de la
+ * app, en vez de empezar recién cuando corren los efectos de las secciones
+ * —que encima están bajo el fold—.
+ */
+export function prefetch(): void {
+  // Los errores los pinta cada sección; acá solo se marcan como manejados para
+  // que no salten como "unhandled rejection" si la API falla antes de montar.
+  void getProjects().catch(() => {});
+  void getTechnologies().catch(() => {});
 }
 
 export type ContactPayload = {
