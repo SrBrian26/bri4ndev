@@ -238,7 +238,7 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
                 >
                   <img
                     src={src}
-                    alt=""
+                    alt={name}
                     draggable={false}
                     className="h-full w-full select-none object-cover"
                   />

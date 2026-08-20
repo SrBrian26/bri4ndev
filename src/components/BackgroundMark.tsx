@@ -40,7 +40,7 @@ function TmcMark() {
     <div className="grid h-full w-full place-items-center">
       <img
         src="/img/tmc-mono-sin-fondo.png"
-        alt=""
+        alt="Logo TMC"
         className="h-[86%] w-[86%] object-contain brightness-0 invert"
         style={{ opacity: TMC_OPACITY }}
       />

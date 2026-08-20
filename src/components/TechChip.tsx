@@ -15,13 +15,13 @@ export default function TechChip({ tech }: { tech: Technology }) {
       {showImage && tech.image && (
         <img
           src={tech.image}
-          alt=""
+          alt={tech.name}
           aria-hidden="true"
           onError={() => setShowImage(false)}
           className="h-6 w-6 shrink-0 object-contain pl-2 grayscale group-hover:grayscale-0 transform transition-all duration-100"
         />
       )}
-      <label className="px-2 py-1">{tech.name}</label>
+      <span className="px-2 py-1">{tech.name}</span>
     </article>
   );
 }

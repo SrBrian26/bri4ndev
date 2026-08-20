@@ -88,7 +88,7 @@ export default function TMC() {
                 <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5">
                   <img
                     src="/img/tmc-mono-sin-fondo.png"
-                    alt="TMC"
+                    alt="Logo TMC"
                     className="h-9 w-9 object-contain brightness-0 invert"
                   />
                 </div>

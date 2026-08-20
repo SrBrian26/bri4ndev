@@ -24,7 +24,7 @@ function NavIcon({ item, isActive }: { item: NavItem; isActive: boolean }) {
     return (
       <img
         src={item.img}
-        alt=""
+        alt="Isotipo TMC"
         aria-hidden="true"
         className={`text-xl w-5 h-5 sm:h-4.5 sm:w-4.5 object-contain brightness-0 invert transition-opacity duration-200 ${
           isActive ? "opacity-100" : "opacity-45 group-hover:opacity-100"
@@ -178,7 +178,7 @@ export default function Navbar() {
       {/* ---------------- Barra inferior (mobile) ---------------- */}
       <nav
         aria-label="Navegación principal"
-        className="fixed inset-x-0 bottom-1 z-50 border border-principal/30 bg-[#0F1420]/30 shadow-xl rounded-b-2xl backdrop-blur-md lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-principal/30 bg-[#0F1420]/30 shadow-xl backdrop-blur-md lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         {/* Progreso de scroll */}

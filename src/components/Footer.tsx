@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Tooltip arriba: el footer no tiene sitio por debajo. */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 translate-y-1 rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1.5 text-xs font-medium whitespace-nowrap text-zinc-100 opacity-0 shadow-lg shadow-black/40 transition duration-150 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+            className="pointer-events-none absolute bottom-full left-[40%] mb-2 -translate-x-1/2 translate-y-1 rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1.5 text-xs font-medium whitespace-nowrap text-zinc-100 opacity-0 shadow-lg shadow-black/40 transition duration-150 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
           >
             <span
               aria-hidden="true"

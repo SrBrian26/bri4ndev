@@ -14,7 +14,7 @@ export default function App() {
   useEffect(startHashNavigation, []);
 
   return (
-    <div className="sm:min-h-screen pb-16 xl:pb-0">
+    <div className="sm:min-h-screen pb-16 lg:pb-0">
       <Topbar />
       <Navbar />
       <main>
