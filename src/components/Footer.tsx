@@ -29,7 +29,7 @@ export default function Footer() {
             href="https://tmcsolucionesdigitales.cl"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-500 no-underline transition-colors duration-200 hover:text-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+            className="text-zinc-500 no-underline hidden sm:block transition-colors duration-200 hover:text-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
           >
             TMC Soluciones Digitales
           </a>
