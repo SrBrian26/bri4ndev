@@ -119,11 +119,11 @@ export default function ProjectCard({ project, index, order = 0 }: Props) {
             <p className="text-sm leading-relaxed text-zinc-400">
               {expanded
                 ? project.description
-                : project.description.length > 290
-                  ? `${project.description.slice(0, 290)}...`
+                : project.description.length > 300
+                  ? `${project.description.slice(0, 300)}...`
                   : project.description}
 
-              {project.description.length > 290 && (
+              {project.description.length > 300 && (
                 <button
                   onClick={() => setExpanded(!expanded)}
                   className="ml-2 text-titulo hover:underline cursor-pointer"
