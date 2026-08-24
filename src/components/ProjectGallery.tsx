@@ -146,7 +146,7 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
   return createPortal(
     <div
       ref={rootRef}
-      className="fixed inset-0 z-100 flex items-center justify-center sm:p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center md:p-4"
     >
       <div
         ref={backdropRef}
@@ -161,7 +161,7 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
         aria-modal="true"
         aria-label={`Galería de ${name}`}
         tabIndex={-1}
-        className="relative flex max-h-screen w-full max-w-7xl flex-col overflow-hidden sm:rounded-2xl border border-zinc-800 bg-zinc-950 opacity-0 shadow-2xl shadow-black/60 focus:outline-none sm:h-full"
+        className="relative flex max-h-screen w-full max-w-7xl flex-col overflow-hidden md:rounded-2xl border border-zinc-800 bg-zinc-950 opacity-0 shadow-2xl shadow-black/60 focus:outline-none sm:h-full"
       >
         {/* Encabezado */}
         <div className="gallery-item flex items-center justify-between gap-4 border-b border-zinc-800 px-5 py-2 opacity-0">
@@ -187,13 +187,13 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
         </div>
 
         {/* Imagen principal */}
-        <div className="relative flex min-h-[30vh] flex-1 items-center justify-center overflow-hidden sm:p-3 sm:min-h-0">
+        <div className="relative flex min-h-[30vh] flex-1 items-center justify-center overflow-hidden md:p-3 sm:min-h-0">
           <img
             ref={imgRef}
             src={images[current]}
             alt={`${name} — imagen ${current + 1} de ${images.length}`}
             draggable={false}
-            className="gallery-item max-h-full max-w-full select-none sm:rounded-lg object-contain opacity-0"
+            className="gallery-item max-h-full max-w-full select-none md:rounded-lg object-contain opacity-0"
           />
 
           {images.length > 1 && (
@@ -230,7 +230,7 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
                   onClick={() => goTo(i)}
                   aria-label={`Ver imagen ${i + 1}`}
                   aria-current={i === current ? "true" : undefined}
-                  className={`h-12 w-16 shrink-0 cursor-pointer overflow-hidden rounded-md border-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 sm:h-14 sm:w-20 ${
+                  className={`h-12 w-16 shrink-0 cursor-pointer overflow-hidden rounded-md border-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 md:h-14 md:w-20 ${
                     i === current
                       ? "border-indigo-400 opacity-100"
                       : "border-transparent opacity-40 hover:border-zinc-600 hover:opacity-90"
