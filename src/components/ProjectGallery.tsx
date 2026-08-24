@@ -146,12 +146,12 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
   return createPortal(
     <div
       ref={rootRef}
-      className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-8"
+      className="fixed inset-0 z-100 flex items-center justify-center sm:p-4"
     >
       <div
         ref={backdropRef}
         onClick={requestClose}
-        className="absolute inset-0  opacity-0 backdrop-blur-md"
+        className="absolute inset-0 opacity-0 backdrop-blur-md"
         aria-hidden="true"
       />
 
@@ -161,10 +161,10 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
         aria-modal="true"
         aria-label={`Galería de ${name}`}
         tabIndex={-1}
-        className="relative flex max-h-[92vh] w-full max-w-7xl flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 opacity-0 shadow-2xl shadow-black/60 focus:outline-none sm:h-full"
+        className="relative flex max-h-screen w-full max-w-7xl flex-col overflow-hidden sm:rounded-2xl border border-zinc-800 bg-zinc-950 opacity-0 shadow-2xl shadow-black/60 focus:outline-none sm:h-full"
       >
         {/* Encabezado */}
-        <div className="gallery-item flex items-center justify-between gap-4 border-b border-zinc-800 px-5 py-3.5 opacity-0">
+        <div className="gallery-item flex items-center justify-between gap-4 border-b border-zinc-800 px-5 py-2 opacity-0">
           <div className="flex min-w-0 items-baseline gap-3">
             <h3 className="truncate text-sm font-semibold text-white">{name}</h3>
             <span
@@ -187,13 +187,13 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
         </div>
 
         {/* Imagen principal */}
-        <div className="relative flex min-h-[30vh] flex-1 items-center justify-center overflow-hidden p-3 sm:min-h-0 sm:p-6">
+        <div className="relative flex min-h-[30vh] flex-1 items-center justify-center overflow-hidden sm:p-3 sm:min-h-0">
           <img
             ref={imgRef}
             src={images[current]}
             alt={`${name} — imagen ${current + 1} de ${images.length}`}
             draggable={false}
-            className="gallery-item max-h-full max-w-full select-none rounded-lg object-contain opacity-0"
+            className="gallery-item max-h-full max-w-full select-none sm:rounded-lg object-contain opacity-0"
           />
 
           {images.length > 1 && (
@@ -222,7 +222,7 @@ export default function ProjectGallery({ name, images, onClose }: Props) {
 
         {/* Miniaturas */}
         {images.length > 1 && (
-          <div className="gallery-item overflow-x-auto border-t border-zinc-800 px-4 py-3 opacity-0">
+          <div className="gallery-item overflow-x-auto bg-principal/10 border-t border-zinc-800/50 px-4 py-3 opacity-0 fixed bottom-0 inset-x-0">
             <div ref={thumbsRef} className="mx-auto flex w-max gap-2">
               {images.map((src, i) => (
                 <button

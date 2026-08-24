@@ -32,6 +32,7 @@ export default function ProjectCard({ project, index, order = 0 }: Props) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const cardRef = useRef<HTMLElement>(null);
   const hasImages = project.images.length > 0;
+  const [expanded, setExpanded] = useState(false);
 
   // Entrada escalonada de la card
   useLayoutEffect(() => {
@@ -45,7 +46,7 @@ export default function ProjectCard({ project, index, order = 0 }: Props) {
           duration: 0.5,
           ease: "power2.out",
           delay: order * 0.09,
-        }
+        },
       );
     }, cardRef);
 
@@ -116,7 +117,20 @@ export default function ProjectCard({ project, index, order = 0 }: Props) {
           {/* Descripción + tecnologías */}
           <div className="grid gap-6 border-t border-zinc-800/70 pt-5 md:grid-cols-[1.6fr_1fr] md:gap-10">
             <p className="text-sm leading-relaxed text-zinc-400">
-              {project.description}
+              {expanded
+                ? project.description
+                : project.description.length > 290
+                  ? `${project.description.slice(0, 290)}...`
+                  : project.description}
+
+              {project.description.length > 290 && (
+                <button
+                  onClick={() => setExpanded(!expanded)}
+                  className="ml-2 text-titulo hover:underline cursor-pointer"
+                >
+                  {expanded ? "Ver menos" : "Ver más"}
+                </button>
+              )}
             </p>
 
             {project.technologies.length > 0 && (
