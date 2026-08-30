@@ -11,7 +11,7 @@ function Wordmark() {
 
 export default function Footer() {
   return (
-    <footer className="mt-auto py-5">
+    <footer className="mt-auto py-2 sm:py-5">
       <div className="mx-auto grid max-w-5xl grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 px-6 sm:grid-cols-3 sm:gap-4">
         <div className="col-start-1 row-start-1 flex flex-col gap-1">
           <Wordmark />
